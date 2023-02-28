@@ -1,20 +1,15 @@
 //Social Media API
 const Koa = require('koa');
-const Router = require('koa-router');
 
 const app = new Koa(); 
-const router = new Router();
 
-router.get('/api/v1', welcomeAPI); 
-app.use(router.routes());
+const special = require('./routes/special.js')
+const posts = require('./routes/posts.js')
 
-function welcomeAPI(ctx, next) { 
-    ctx.body = { 
-        message: "Welcome to the Social Media Web App" 
-    } 
-}
-
-const posts = require('./routes/posts.js');
+app.use(special.routes()); 
 app.use(posts.routes());
 
-app.listen(3000);
+
+let port = process.env.PORT || 3000;
+
+app.listen(port);
