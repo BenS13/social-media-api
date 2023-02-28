@@ -13,6 +13,7 @@
   "author": "Ben Sabatier",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.14.1"
+    "koa": "^2.14.1",
+    "koa-router": "^12.0.0"
   }
 }
