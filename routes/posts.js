@@ -90,10 +90,10 @@ async function deletePost(ctx){
 //******************FUNCTIONS FOR LIKES**************** */
 async function getLikes(ctx){
     let id = ctx.params.id;
-    let likes = await posts.getLikes(id);
-    if (likes){
+    let like = await posts.getLikes(id);
+    if (like){
         ctx.status = 201;
-        ctx.body = likes;
+        ctx.body = like;
     }
 }
 
