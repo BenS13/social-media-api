@@ -1,6 +1,6 @@
 const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
-exports.getCommentsByPostId = async function getCommentsByPostId (id) {
+exports.getComments = async function getComments (id) {
     let query = "SELECT * FROM comments WHERE postID = ?";
     let values = [id];
     let data = await db.run_query(query, values);
@@ -9,7 +9,8 @@ exports.getCommentsByPostId = async function getCommentsByPostId (id) {
 
 exports.createComment = async function createComment(comment, id) {
     let query = "INSERT INTO comments SET ?";
-    let values = [comment, id]
+    comment["postID"] = id;
+    let values = [comment];
     let data = await db.run_query(query, values);
     return data;
 };

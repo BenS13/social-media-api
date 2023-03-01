@@ -3,6 +3,5 @@ CREATE TABLE comments (
     postID INT NOT NULL,
     alltext TEXT NOT NULL,
     authorID INT NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (postID) REFERENCES posts (ID)
+    PRIMARY KEY (ID)
 );

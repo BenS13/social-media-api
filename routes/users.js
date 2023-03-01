@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-const model = require('../models/users')
+const users = require('../models/users')
 
 //base URL structure to route to users
 const router = Router({prefix: '/api/v1/users'});
@@ -19,20 +19,18 @@ router.del('/:id([0-9]{1,})', deleteUser);
 
 //async function to get all users
 async function getAllUsers(ctx){
-    let users = await model.getAllUsers();
-    if (users.length) {
+    let user = await users.getAllUsers();
+    if (user.length) {
         ctx.status = 200;
-        ctx.body = users;
+        ctx.body = user;
     }
-    
-    
 }
 
 
 //async function to getusersByID
 async function getUserById(ctx){
     let id = ctx.params.id;//gets ID from url
-    let user = await model.getUserById(id);
+    let user = await users.getUserById(id);
     if (user.length) {//if query to DB successful
         ctx.body = user[0];
     }else {
@@ -43,10 +41,10 @@ async function getUserById(ctx){
 //async fucntion to create a user
 async function createUser(ctx){
     const body = ctx.request.body;
-    let user = await model.createUser(body);
+    let user = await users.createUser(body);
     if (user){
         ctx.status=201;
-        ctx.body = {ID: user.insertID}
+        ctx.body = {ID: user.insertId}
     }
 }
 
@@ -54,7 +52,7 @@ async function createUser(ctx){
 async function updateUser(ctx){
     let id = ctx.params.id;
     const body = ctx.request.body;
-    let user = await model.updateUser(body, id);
+    let user = await users.updateUser(body, id);
     if (user){
         ctx.status = 201;
         ctx.body = {ID: id};
@@ -65,7 +63,7 @@ async function updateUser(ctx){
 //async function to delete a user
 async function deleteUser(ctx){
     let id = ctx.params.id;
-    let user = await model.deleteUser(id);
+    let user = await users.deleteUser(id);
     if (user){
         ctx.status = 200;
         ctx.body = { ID: id };

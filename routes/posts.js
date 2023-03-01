@@ -1,7 +1,8 @@
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-const model = require('../models/posts')//import models which defines requests to DB
-
+const posts = require('../models/posts');//import postss which defines requests to DB
+const comments = require('../models/comments');
+const likes = require('../models/likes');
 
 //base URL structure to route to posts
 const router = Router({prefix: '/api/v1/posts'});
@@ -12,26 +13,40 @@ const router = Router({prefix: '/api/v1/posts'});
 //and/or parameters
 //and url structuere
 //needed to then run each of the functions below
+
+//post routes
 router.get('/', getAllPosts);
 router.post('/', bodyParser(), createPost)
-
 router.get('/:id([0-9]{1,})', getPostById); 
 router.put('/:id([0-9]{1,})', bodyParser(), updatePost); 
 router.del('/:id([0-9]{1,})', deletePost);
 
+//likes routes
+router.get('/:id([0-9]{1,})/likes', getLikes);
+router.post('/:id([0-9]{1,})/likes', addLike);
+router.del('/:id([0-9]{1,})/likes', removeLike);
+
+
+//comments routes
+router.post('/:id([0-9]{1,})/comments', bodyParser(), createComment)
+router.get('/:id([0-9]{1,})/comments', getComments); 
+//router.put('/:id([0-9]{1,})', bodyParser(), updatePost); 
+//router.del('/:id([0-9]{1,})', deletePost);
+
+
+//***********FUNCTIONS FOR POSTS*************************8 */
 //async function to get all posts
 async function getAllPosts(ctx){
-    let posts = await model.getAllPosts();
-    if (posts.length) {
-        ctx.body = posts;
+    let post = await posts.getAllPosts();
+    if (post.length) {
+        ctx.body = post;
     }
 }
-
 
 //async function to getPostsByID
 async function getPostById(ctx){
     let id = ctx.params.id;//gets ID from url
-    let post = await model.getPostById(id);
+    let post = await posts.getPostById(id);
     if (post.length) {//if query to DB successful
         ctx.body = post[0];
     }else {
@@ -42,10 +57,10 @@ async function getPostById(ctx){
 //async fucntion to create a post
 async function createPost(ctx){
     const body = ctx.request.body;
-    let post = await model.createPost(body);
+    let post = await posts.createPost(body);
     if (post){
         ctx.status=201;
-        ctx.body = {ID: post.insertID}
+        ctx.body = {ID: post.insertId}
     }
 }
 
@@ -53,7 +68,7 @@ async function createPost(ctx){
 async function updatePost(ctx){
     let id = ctx.params.id;
     const body = ctx.request.body;
-    let post = await model.updatePost(body, id);
+    let post = await posts.updatePost(body, id);
     if (post){
         ctx.status = 201;
         ctx.body = {ID: id};
@@ -64,10 +79,54 @@ async function updatePost(ctx){
 //async function to delete a post
 async function deletePost(ctx){
     let id = ctx.params.id;
-    let post = await model.deletePost(id);
+    let post = await posts.deletePost(id);
     if (post){
         ctx.status = 200;
         ctx.body = { ID: id };
+    }
+}
+
+
+//******************FUNCTIONS FOR LIKES**************** */
+async function getLikes(ctx){
+    let id = ctx.params.id;
+    let likes = await posts.getLikes(id);
+    if (likes){
+        ctx.status = 201;
+        ctx.body = likes;
+    }
+}
+
+async function addLike(ctx){
+    //TODO
+}
+
+async function removeLike(ctx){
+    //TODO
+}
+
+//**************FUNCTIONS FOR COMMENTS****************** */
+//get comments by post id
+async function getComments(ctx){
+    let id = ctx.params.id;//gets post ID from url
+    let comment = await comments.getComments(id);
+    if (comment.length) {//if query to DB successful
+        ctx.body = comment;
+    }else {
+        ctx.status = 404;
+    }
+}
+
+//create comment for post with {post id}
+async function createComment(ctx){
+    let postId = ctx.params.id;
+    const body = ctx.request.body;
+    let comment = await comments.createComment(body, postId);
+    if (comment){
+        ctx.status=201;//return code success
+        ctx.body = {ID: comment.insertId,
+                    postID : postId,//return commentID, postID, body of comment
+                    body: body}
     }
 }
 
