@@ -22,7 +22,7 @@ exports.createPost = async function createPost(post) {
     return data;
 };
 
-//update posts
+//update post
 exports.updatePost = async function updatePost(post, id){
     let query = "UPDATE posts SET ? WHERE ID = ?";
     let values = [post, id];
@@ -30,6 +30,7 @@ exports.updatePost = async function updatePost(post, id){
     return data;
 };
 
+//delete post
 exports.deletePost = async function deletePost(id) {
     let query = "DELETE FROM posts WHERE ID = ?";
     let data = await db.run_query(query, id);
