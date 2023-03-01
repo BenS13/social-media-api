@@ -25,3 +25,6 @@ exports.updateUser = async function updateUser(user, id){
     let data = await db.run_query(query, values);
     return data;
 };
+
+
+//create async function to delete user
