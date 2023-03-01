@@ -21,8 +21,11 @@ router.del('/:id([0-9]{1,})', deleteUser);
 async function getAllUsers(ctx){
     let users = await model.getAllUsers();
     if (users.length) {
+        ctx.status = 200;
         ctx.body = users;
     }
+    
+    
 }
 
 
