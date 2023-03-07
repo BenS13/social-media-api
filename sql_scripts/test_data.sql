@@ -12,3 +12,9 @@ INSERT INTO comments (postID, allText, authorID) VALUES
     (1, "TestComment1", 1),
     (1, "TestComment2", 2),
     (2, "TestComment3", 3);
+
+INSERT INTO likes (postID, authorID) VALUES
+    (1,2),
+    (2,1),
+    (3,2),
+    (2,3);
