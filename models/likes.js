@@ -1,7 +1,11 @@
 const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
+//get likes for post by postID
 exports.getLikes = async function getLikes(id){
-    //TODO
+    let query = "SELECT COUNT(*) FROM likes WHERE postID = ?";
+    let values = [id];
+    let data = await db.run_query(query, values);
+    return data;
 };
 
 exports.addLike = async function addLike(id){
