@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const users = require('../models/users')
+const auth = require('../controllers/auth');
 
 //base URL structure to route to users
 const router = Router({prefix: '/api/v1/users'});

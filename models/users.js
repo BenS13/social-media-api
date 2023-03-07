@@ -7,6 +7,13 @@ exports.getUserById = async function getUserById (id) {
     return data;
 };
 
+exports.getUserByUsername = async function getUserbyUsername (username) {
+    let query = "SELECT * FROM users WHERE username = ?";
+    let values = [username];
+    let data = await db.run_query(query, values);
+    return data;
+}
+
 exports.getAllUsers = async function getAllUsers() {
     let query = "SELECT * FROM users;";
     let data = await db.run_query(query);
