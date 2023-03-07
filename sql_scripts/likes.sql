@@ -1,0 +1,6 @@
+CREATE TABLE likes (
+    ID INT NOT NULL AUTO_INCREMENT,
+    postID INT NOT NULL,
+    authorID INT NOT NULL,
+    PRIMARY KEY (ID)
+);
