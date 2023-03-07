@@ -5,9 +5,15 @@ exports.getLikes = async function getLikes(id){
 };
 
 exports.addLike = async function addLike(id){
-    //TODO
+    //id is postID
+    //query DB to see if user already likes post
+    //if not add like
+    //if so do nothing
 };
 
 exports.removeLike = async function removeLike(id){
-    //TODO
+    //id is postID
+    //query DB to see if a like from user exists
+    //if so remove like for that post from that user
+    //if not do nothing
 };

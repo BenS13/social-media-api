@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-const posts = require('../models/posts');//import postss which defines requests to DB
+const posts = require('../models/posts');
 const comments = require('../models/comments');
 const likes = require('../models/likes');
 
@@ -90,19 +90,29 @@ async function deletePost(ctx){
 //******************FUNCTIONS FOR LIKES**************** */
 async function getLikes(ctx){
     let id = ctx.params.id;
-    let like = await posts.getLikes(id);
+    let like = await likes.getLikes(id);
     if (like){
-        ctx.status = 201;
+        ctx.status = 200;
         ctx.body = like;
     }
 }
 
 async function addLike(ctx){
-    //TODO
+    let id = ctx.params.id;
+    let like = await likes.addLike(id);
+    if (like){
+        ctx.status = 201;
+        ctx.body = {ID: insertId};
+    }
 }
 
 async function removeLike(ctx){
-    //TODO
+    let id = ctx.params.id;
+    let like = await likes.addLike(id);
+    if (like){
+        ctx.status = 200;
+        ctx.body = {ID: insertId};
+    }
 }
 
 //**************FUNCTIONS FOR COMMENTS****************** */
