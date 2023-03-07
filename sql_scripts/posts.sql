@@ -6,7 +6,6 @@ CREATE TABLE posts (
     dateModified DATETIME ON UPDATE CURRENT_TIMESTAMP,
     imageURL VARCHAR(2048),
     authorID INT NOT NULL,
-    likes INT,
     PRIMARY KEY (ID),
     FOREIGN KEY (authorID) REFERENCES users (ID)
 );
