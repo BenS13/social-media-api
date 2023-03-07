@@ -106,6 +106,7 @@ async function removeLike(ctx){
 }
 
 //**************FUNCTIONS FOR COMMENTS****************** */
+//'api/v1/posts/{postid}/comments
 //get comments by post id
 async function getComments(ctx){
     let id = ctx.params.id;//gets post ID from url
@@ -117,6 +118,7 @@ async function getComments(ctx){
     }
 }
 
+//'api/v1/posts/{postid}/comments
 //create comment for post with {post id}
 async function createComment(ctx){
     let postId = ctx.params.id;

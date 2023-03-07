@@ -1,5 +1,6 @@
 const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
+//get comments for sepcific post
 exports.getComments = async function getComments (id) {
     let query = "SELECT * FROM comments WHERE postID = ?";
     let values = [id];

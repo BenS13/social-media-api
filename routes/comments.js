@@ -17,7 +17,7 @@ async function deleteComment(ctx){
     if (comment){
         ctx.status = 200;//return code for delete succesful
         ctx.body = {ID: comment.insertId,//return commentID, body of comment
-                    body: comment.insertallText}
+                    body: 'comment deleted'}
     }
 }
 
