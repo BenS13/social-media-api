@@ -1,12 +1,13 @@
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const comments = require('../models/comments')
+const {validateComment} = require('../controllers/validation');
 
 //base URL structure to route to comments
 const router = Router({prefix: '/api/v1/comments'});
 
 //comments routes
-router.put('/:id([0-9]{1,})', bodyParser(), updateComment); 
+router.put('/:id([0-9]{1,})', bodyParser(), validateComment, updateComment); 
 router.del('/:id([0-9]{1,})', deleteComment);
 
 //*************FUNCTIONS FOR DEL and UPDATE COMMENTS**************** */

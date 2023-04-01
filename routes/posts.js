@@ -3,7 +3,8 @@ const bodyParser = require('koa-bodyparser');
 const posts = require('../models/posts');
 const comments = require('../models/comments');
 const likes = require('../models/likes');
-const {validatePost} = require('../controllers/validation');
+const {validatePost, validateComment} = require('../controllers/validation');
+const { validate } = require('jsonschema');
 
 //base URL structure to route to posts
 const router = Router({prefix: '/api/v1/posts'});
@@ -29,7 +30,7 @@ router.del('/:id([0-9]{1,})/likes', removeLike);
 
 
 //comments routes
-router.post('/:id([0-9]{1,})/comments', bodyParser(), createComment)
+router.post('/:id([0-9]{1,})/comments', bodyParser(), validateComment, createComment)
 router.get('/:id([0-9]{1,})/comments', getComments); 
 //router.put('/:id([0-9]{1,})', bodyParser(), updatePost); 
 //router.del('/:id([0-9]{1,})', deletePost);
