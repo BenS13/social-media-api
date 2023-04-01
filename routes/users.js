@@ -2,6 +2,7 @@ const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const users = require('../models/users')
 const auth = require('../controllers/auth');
+const {validateUser} = require('../controllers/validation')
 
 //base URL structure to route to users
 const router = Router({prefix: '/api/v1/users'});
@@ -12,10 +13,10 @@ const router = Router({prefix: '/api/v1/users'});
 //and url structuere
 //needed to then run each of the functions below
 router.get('/', getAllUsers);
-router.post('/', bodyParser(), createUser)
+router.post('/', bodyParser(), validateUser, createUser)
 
 router.get('/:id([0-9]{1,})', getUserById); 
-router.put('/:id([0-9]{1,})', bodyParser(), updateUser); 
+router.put('/:id([0-9]{1,})', bodyParser(), validateUser, updateUser); 
 router.del('/:id([0-9]{1,})', deleteUser);
 
 //async function to get all users
