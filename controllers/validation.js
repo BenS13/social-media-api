@@ -1,5 +1,6 @@
 const {Validator, ValidationError} = require('jsonschema');
-const schema = require('../schemas/post.schema.js');
+const postSchema = require('../schemas/post.schema.js');
+const userSchema = require('../schemas/user.schema.js');
 
 const v = new Validator();
 
@@ -13,7 +14,7 @@ exports.validatePost = async (ctx, next) => {
     const requestBody = ctx.request.body;
 
     try{
-        v.validate(requestBody, schema, validateOptions);
+        v.validate(requestBody, postSchema, validateOptions);
         await next()
     } catch (error) {
         if (error instanceof ValidationError) {
@@ -24,3 +25,27 @@ exports.validatePost = async (ctx, next) => {
         }
     }
 }
+
+exports.validateUser = async (ctx, next) => {
+
+    const validateOptions = {
+        throwError: true,
+        allowUnknownAttributes: false
+    };
+
+    const requestBody = ctx.request.body;
+
+    try{
+        v.validate(requestBody, userSchema, validateOptions);
+        await next()
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            ctx.body = error;
+            ctx.status = 400;
+        } else {
+            throw error;
+        }
+    }
+}
+
+

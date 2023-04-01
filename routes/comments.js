@@ -9,7 +9,7 @@ const router = Router({prefix: '/api/v1/comments'});
 router.put('/:id([0-9]{1,})', bodyParser(), updateComment); 
 router.del('/:id([0-9]{1,})', deleteComment);
 
-//*************FUNCTIONS FOR COMMENTS**************** */
+//*************FUNCTIONS FOR DEL and UPDATE COMMENTS**************** */
 //delete comment using {comment id}
 async function deleteComment(ctx){
     let commentId = ctx.params.id;

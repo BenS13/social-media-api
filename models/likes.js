@@ -2,12 +2,14 @@ const db = require('../helpers/database');//import our database.js method to que
 
 //get likes for post by postID
 exports.getLikes = async function getLikes(id){
-    let query = "SELECT COUNT(*) FROM likes WHERE postID = ?";
+    let query = "SELECT COUNT(*) as 'count' FROM likes WHERE postID = ?";
     let values = [id];
     let data = await db.run_query(query, values);
     return data;
 };
 
+
+//Not needed as likes can be added in the posts route themselves
 exports.addLike = async function addLike(id){
     //id is postID
     //query DB to see if user already likes post

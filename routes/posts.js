@@ -116,7 +116,7 @@ async function removeLike(ctx){
     }
 }
 
-//**************FUNCTIONS FOR COMMENTS****************** */
+//**************FUNCTIONS FOR GETTING COMMENTS FOR POST and creating a comment on a post****************** */
 //'api/v1/posts/{postid}/comments
 //get comments by post id
 async function getComments(ctx){
@@ -132,9 +132,9 @@ async function getComments(ctx){
 //'api/v1/posts/{postid}/comments
 //create comment for post with {post id}
 async function createComment(ctx){
-    let postId = ctx.params.id;
-    const body = ctx.request.body;
-    let comment = await comments.createComment(body, postId);
+    let postId = ctx.params.id;//get post id from url
+    const body = ctx.request.body;//get body of request
+    let comment = await comments.createComment(body, postId);//add comment to database
     if (comment){
         ctx.status=201;//return code success
         ctx.body = {ID: comment.insertId,
