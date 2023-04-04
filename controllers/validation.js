@@ -71,4 +71,26 @@ exports.validateComment = async (ctx, next) => {
     }
 }
 
+exports.validateLike = async (ctx, next) => {
+
+    const validateOptions = {
+        throwError: true,
+        allowUnknownAttributes: false
+    };
+
+    const requestBody = ctx.request.body;
+
+    try{
+        v.validate(requestBody, likeSchema, validateOptions);
+        await next()
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            ctx.body = error;
+            ctx.status = 400;
+        } else {
+            throw error;
+        }
+    }
+}
+
 
