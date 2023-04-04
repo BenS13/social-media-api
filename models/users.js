@@ -35,3 +35,8 @@ exports.updateUser = async function updateUser(user, id){
 
 
 //create async function to delete user
+exports.deleteUser = async function deleteUser(id) {
+    let query = "DELETE FROM users WHERE ID = ?";
+    let data = await db.run_query(query, id);
+    return data
+};

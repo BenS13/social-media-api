@@ -25,6 +25,8 @@ async function getAllUsers(ctx){
     if (user.length) {
         ctx.status = 200;
         ctx.body = user;
+    }else {
+        ctx.status = 404//Not found
     }
 }
 
@@ -47,6 +49,8 @@ async function createUser(ctx){
     if (user){
         ctx.status=201;
         ctx.body = {ID: user.insertId}
+    }else {
+        ctx.status = 500;
     }
 }
 
@@ -58,6 +62,8 @@ async function updateUser(ctx){
     if (user){
         ctx.status = 201;
         ctx.body = {ID: id};
+    }else {
+        ctx.status = 500;
     }
 
 }
@@ -69,6 +75,8 @@ async function deleteUser(ctx){
     if (user){
         ctx.status = 200;
         ctx.body = { ID: id };
+    }else {
+        ctx.status = 500;
     }
 }
 

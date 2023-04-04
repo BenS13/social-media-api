@@ -5,6 +5,7 @@ const comments = require('../models/comments');
 const likes = require('../models/likes');
 const {validatePost, validateComment, validateLike} = require('../controllers/validation');
 const { validate } = require('jsonschema');
+const auth = require('../controllers/auth');
 
 //base URL structure to route to posts
 const router = Router({prefix: '/api/v1/posts'});
@@ -25,8 +26,8 @@ router.del('/:id([0-9]{1,})', deletePost);
 
 //likes routes
 router.get('/:id([0-9]{1,})/likes', getLikes);
-router.post('/:id([0-9]{1,})/likes', validateLike, addLike);
-router.del('/:id([0-9]{1,})/likes', validateLike, removeLike);
+router.post('/:id([0-9]{1,})/likes', validateLike, auth, addLike);
+router.del('/:id([0-9]{1,})/likes', validateLike, auth, removeLike);
 
 
 //comments routes (Routes for accessing comments by ID is in comments.js)
@@ -42,6 +43,8 @@ async function getAllPosts(ctx){
     let post = await posts.getAllPosts();
     if (post.length) {
         ctx.body = post;
+    }else {
+        ctx.status = 404;//Not found
     }
 }
 
@@ -52,7 +55,7 @@ async function getPostById(ctx){
     if (post.length) {//if query to DB successful
         ctx.body = post[0];
     }else {
-        ctx.status = 404;
+        ctx.status = 404;//Not found
     }
 }
 
@@ -63,6 +66,8 @@ async function createPost(ctx){
     if (post){
         ctx.status=201;
         ctx.body = {ID: post.insertId}
+    }else {
+        ctx.status = 500;//Server error
     }
 }
 
@@ -74,6 +79,8 @@ async function updatePost(ctx){
     if (post){
         ctx.status = 201;
         ctx.body = {ID: id};
+    }else {
+        ctx.status = 500;//Server error
     }
 
 }
@@ -85,35 +92,48 @@ async function deletePost(ctx){
     if (post){
         ctx.status = 200;
         ctx.body = { ID: id };
+    }else {
+        ctx.status = 500;//Server error
     }
 }
 
 
 //******************FUNCTIONS FOR LIKES**************** */
 async function getLikes(ctx){
-    let id = ctx.params.id;
-    let like = await likes.getLikes(id);
+    let postId = ctx.params.id;
+    //console.log(ctx.state.user.ID);
+    let like = await likes.getLikes(postId);
     if (like){
         ctx.status = 200;
-        ctx.body = like;
+        ctx.body = like ? like: 0;
+    }else{
+        ctx.status = 404;//Rescourse not found
     }
 }
 
 async function addLike(ctx){
-    let id = ctx.params.id;
-    let like = await likes.addLike(id);
+    let postId = ctx.params.id;
+    let userId = ctx.state.user.ID;
+    let like = await likes.addLike(userId, postId);
     if (like){
         ctx.status = 201;
-        ctx.body = {ID: insertId};
+        ctx.body = {ID: insertId,
+                    message: 'liked'};
+    }else {
+        ctx.status = 500;//Server error
     }
 }
 
 async function removeLike(ctx){
-    let id = ctx.params.id;
-    let like = await likes.addLike(id);
+    let postId = ctx.params.id;
+    let userId = ctx.state.user.ID;
+    let like = await likes.removeLike(userId, postId);
     if (like){
         ctx.status = 200;
-        ctx.body = {ID: insertId};
+        ctx.body = {ID: insertId,
+                    message: "disliked"};
+    }else {
+        ctx.status = 500;//Server error
     }
 }
 
@@ -126,7 +146,7 @@ async function getComments(ctx){
     if (comment.length) {//if query to DB successful
         ctx.body = comment;
     }else {
-        ctx.status = 404;
+        ctx.status = 404;//Not found
     }
 }
 
@@ -141,6 +161,8 @@ async function createComment(ctx){
         ctx.body = {ID: comment.insertId,
                     postID : postId,//return commentID, postID, body of comment
                     body: body}
+    }else {
+        ctx.status = 500;//server error
     }
 }
 

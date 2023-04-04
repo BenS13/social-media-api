@@ -19,12 +19,21 @@ async function deleteComment(ctx){
         ctx.status = 200;//return code for delete succesful
         ctx.body = {ID: comment.insertId,//return commentID, body of comment
                     body: 'comment deleted'}
+    }else {
+        ctx.status = 500;
     }
 }
 
 //update comment using {comment id}
 async function updateComment(ctx){
-    //todo
+    let commentId = ctx.params.id;
+    let comment = await comments.updateComment(body, commentId);
+    if (comment){
+        ctx.status = 201;
+        ctx.body = {ID:id};
+    }else {
+        ctx.status = 500;//Error
+    }
 }
 
 module.exports = router;

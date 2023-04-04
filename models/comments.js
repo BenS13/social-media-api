@@ -24,3 +24,10 @@ exports.deleteComment = async function deleteComment(id) {
 };
 
 //create update async function for comments
+
+exports.updateComment = async function updateComment(comment, id) {
+    let query = "UPDATE comments SET ? WHERE ID = ?";
+    let values = [comment, id];
+    let data = await db.run_query(query, values);
+    return data;
+}
