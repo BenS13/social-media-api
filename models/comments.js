@@ -17,7 +17,8 @@ exports.createComment = async function createComment(userId, postId, commentBody
     return data;
 };
 
-exports.deleteComment = async function deleteComment(userId, commentId) {
+//delete comment
+exports.deleteComment = async function deleteComment(commentId) {
     let query = "DELETE FROM comments WHERE ID = ?";
     let values = [commentId];
     let data = await db.run_query(query, values);
@@ -26,9 +27,9 @@ exports.deleteComment = async function deleteComment(userId, commentId) {
 
 //create update async function for comments
 
-exports.updateComment = async function updateComment(userId, commentId) {
+exports.updateComment = async function updateComment(commentId, commentBody) {
     let query = "UPDATE comments SET ? WHERE ID = ?";
-    let values = [comment, id];
+    let values = [commentBody, commentId];
     let data = await db.run_query(query, values);
     return data;
 }

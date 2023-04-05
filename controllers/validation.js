@@ -1,14 +1,14 @@
 const {Validator, ValidationError} = require('jsonschema');
 
-const postSchema = require('../schemas/post.schema.js').createPost;
-const postUpdateSchema = require('../schemas/post.schema.js').updatePost;
+const postSchema = require('../schemas/post.json').createPost;
+const postUpdateSchema = require('../schemas/post.json').updatePost;
 
-const userSchema = require('../schemas/user.schema.js').user;
-const userUpdateSchema = require('../schemas/user.schema.js').updateUser;
+const userSchema = require('../schemas/user.json').user;
+const userUpdateSchema = require('../schemas/user.json').updateUser;
 
-const commentSchema = require('../schemas/comment.schema.js').comment;
+const commentSchema = require('../schemas/comment.json').comment;
 
-const likeSchema = require('../schemas/like.schema')
+const likeSchema = require('../schemas/like.json').like;
 
 
 //Takes schema and resource

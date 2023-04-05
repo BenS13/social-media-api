@@ -42,6 +42,7 @@ router.get('/:id([0-9]{1,})/comments', getComments);
 async function getAllPosts(ctx){
     let post = await posts.getAllPosts();
     if (post.length) {
+        ctx.status = 200;
         ctx.body = post;
     }else {
         ctx.status = 404;//Not found
@@ -53,6 +54,7 @@ async function getPostById(ctx){
     let id = ctx.params.id;//gets ID from url
     let post = await posts.getPostById(id);
     if (post.length) {//if query to DB successful
+        ctx.status = 200;
         ctx.body = post[0];
     }else {
         ctx.status = 404;//Not found
@@ -86,12 +88,12 @@ async function updatePost(ctx){
         } else{
             let result = await posts.updatePost(postId, postBody);//Update post
             if (result.affectedRows) {
-                ctx.status = 201;
+                ctx.status = 200;
                 ctx.body = {updated: true, ID: postId};
             }
         }
     }else{
-        ctx.status = 500;
+        ctx.status = 404;
     }
 }
 
@@ -162,6 +164,7 @@ async function getComments(ctx){
     let comment = await comments.getComments(id);
     if (comment.length) {//if query to DB successful
         ctx.body = comment;
+        ctx.status = 200;
     }else {
         ctx.status = 404;//Not found
     }
@@ -177,7 +180,6 @@ async function createComment(ctx){
     const commentBody = ctx.request.body;//get body of request
     
     let comment = await comments.createComment(userId, postId, commentBody);
-    ctx.status = 201;//add comment to database
     
     if (comment){
         ctx.status=201;//return code success

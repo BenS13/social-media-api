@@ -48,6 +48,7 @@ async function getUserById(ctx){
         if (!allowed.granted) {
             ctx.status = 403;
         }else {
+            ctx.status= 200
             ctx.body = user[0];
         }
     }else {
@@ -83,12 +84,12 @@ async function updateUser(ctx){
         }else {
             let result = await users.updateUser(body, id)
             if (result.affectedRows) {
-                ctx.status = 201;
+                ctx.status = 200;
                 ctx.body = {updated: true, ID: id};
             }
         } 
     }else {
-        ctx.status = 500;
+        ctx.status = 404;
     }
 }
 
