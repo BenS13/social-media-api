@@ -24,7 +24,6 @@ exports.removeLike = async function removeLike(userId,postId){
     let query = "DELETE FROM likes WHERE postID=? AND authorID=?;";
     const data = await db.run_query(query, [postId, userId]);
     return data;
-    //id is postID
     //query DB to see if a like from user exists
     //if so remove like for that post from that user
     //if not do nothing

@@ -19,10 +19,10 @@ const router = Router({prefix: '/api/v1/posts'});
 
 //post routes
 router.get('/', getAllPosts);
-router.post('/', bodyParser(), validatePost, createPost)
+router.post('/', bodyParser(), validatePost, auth, createPost)
 router.get('/:id([0-9]{1,})', getPostById); 
-router.put('/:id([0-9]{1,})', bodyParser(), validatePost, updatePost); 
-router.del('/:id([0-9]{1,})', deletePost);
+router.put('/:id([0-9]{1,})', bodyParser(), validatePost, auth, updatePost); 
+router.del('/:id([0-9]{1,})', auth, deletePost);
 
 //likes routes
 router.get('/:id([0-9]{1,})/likes', getLikes);
@@ -33,8 +33,7 @@ router.del('/:id([0-9]{1,})/likes', validateLike, auth, removeLike);
 //comments routes (Routes for accessing comments by ID is in comments.js)
 router.post('/:id([0-9]{1,})/comments', bodyParser(), validateComment, createComment)
 router.get('/:id([0-9]{1,})/comments', getComments); 
-//router.put('/:id([0-9]{1,})', bodyParser(), updatePost); 
-//router.del('/:id([0-9]{1,})', deletePost);
+
 
 
 //***********FUNCTIONS FOR POSTS*************************8 */
@@ -61,11 +60,13 @@ async function getPostById(ctx){
 
 //async fucntion to create a post
 async function createPost(ctx){
+    let userId = ctx.state.user.ID;
     const body = ctx.request.body;
-    let post = await posts.createPost(body);
+    let post = await posts.createPost(userId, postBody);
     if (post){
         ctx.status=201;
-        ctx.body = {ID: post.insertId}
+        ctx.body = {message: "Post Created",
+                ID: post.insertId}
     }else {
         ctx.status = 500;//Server error
     }
@@ -73,12 +74,13 @@ async function createPost(ctx){
 
 //async function to update a post
 async function updatePost(ctx){
-    let id = ctx.params.id;
-    const body = ctx.request.body;
-    let post = await posts.updatePost(body, id);
+    let postId = ctx.params.id;
+    const postBody = ctx.request.body;
+    let post = await posts.updatePost(postId, postBody);
     if (post){
         ctx.status = 201;
-        ctx.body = {ID: id};
+        ctx.body = {message: "Post updated",
+                    ID: postId};
     }else {
         ctx.status = 500;//Server error
     }
@@ -91,7 +93,8 @@ async function deletePost(ctx){
     let post = await posts.deletePost(id);
     if (post){
         ctx.status = 200;
-        ctx.body = { ID: id };
+        ctx.body = { message: "Post deleted",
+                    ID: id };
     }else {
         ctx.status = 500;//Server error
     }
@@ -154,13 +157,15 @@ async function getComments(ctx){
 //create comment for post with {post id}
 async function createComment(ctx){
     let postId = ctx.params.id;//get post id from url
-    const body = ctx.request.body;//get body of request
-    let comment = await comments.createComment(body, postId);//add comment to database
+    let userId = ctx.state.user.ID;//Get user ID
+    const commentBody = ctx.request.body;//get body of request
+    let comment = await comments.createComment(userId, postId, commentBody);//add comment to database
     if (comment){
         ctx.status=201;//return code success
         ctx.body = {ID: comment.insertId,
                     postID : postId,//return commentID, postID, body of comment
-                    body: body}
+                    body: body,
+                message : "Comment created"}
     }else {
         ctx.status = 500;//server error
     }

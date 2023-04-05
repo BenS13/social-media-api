@@ -16,23 +16,26 @@ exports.getAllPosts = async function getAllPosts() {
 };
 
 //create new post
-exports.createPost = async function createPost(post) {
-    let query = "INSERT INTO posts SET ?";
-    let data = await db.run_query(query, post);
+exports.createPost = async function createPost(userId,postBody) {
+    let query = "INSERT INTO posts SET ?"; 
+    postBody["authorID"] = userId;
+    let values = [postBody];
+    let data = await db.run_query(query, values);
     return data;
 };
 
 //update post
-exports.updatePost = async function updatePost(post, id){
+exports.updatePost = async function updatePost(postId, postBody){
     let query = "UPDATE posts SET ? WHERE ID = ?";
-    let values = [post, id];
+    let values = [postBody, postId];
     let data = await db.run_query(query, values);
     return data;
 };
 
 //delete post
-exports.deletePost = async function deletePost(id) {
+exports.deletePost = async function deletePost(postId) {
     let query = "DELETE FROM posts WHERE ID = ?";
+    values= [postId]
     let data = await db.run_query(query, id);
     return data
 };

@@ -23,5 +23,5 @@ module.exports = {
             "minimum": 0
         },
     },
-    "required": ["title", "allText", "authorID" ]
+    "required": ["title", "allText" ]
 }
