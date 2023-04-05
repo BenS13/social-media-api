@@ -34,8 +34,17 @@ exports.updatePost = async function updatePost(postId, postBody){
 
 //delete post
 exports.deletePost = async function deletePost(postId) {
-    let query = "DELETE FROM posts WHERE ID = ?";
-    values= [postId]
-    let data = await db.run_query(query, id);
+    //Delete comments for post
+    //Delete likes for post
+    //Delete post
+    let values = [postId];
+    let query = "DELETE FROM comments WHERE postID = ?"
+    await db.run_query(query, values);
+
+    query = "DELETE FROM likes WHERE postID = ?"
+    await db.run_query(query, values);
+
+    query = "DELETE FROM posts WHERE ID = ?";
+    let data = await db.run_query(query, values);
     return data
 };

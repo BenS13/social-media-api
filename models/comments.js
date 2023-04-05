@@ -12,14 +12,14 @@ exports.createComment = async function createComment(userId, postId, commentBody
     let query = "INSERT INTO comments SET ?";
     commentBody["postID"] = postId;
     commentBody["authorID"] = userId;
-    let values = [comment];
+    let values = [commentBody];
     let data = await db.run_query(query, values);
     return data;
 };
 
 exports.deleteComment = async function deleteComment(userId, commentId) {
     let query = "DELETE FROM comments WHERE ID = ?";
-    let values = [id];
+    let values = [commentId];
     let data = await db.run_query(query, values);
     return data;
 };
@@ -29,6 +29,14 @@ exports.deleteComment = async function deleteComment(userId, commentId) {
 exports.updateComment = async function updateComment(userId, commentId) {
     let query = "UPDATE comments SET ? WHERE ID = ?";
     let values = [comment, id];
+    let data = await db.run_query(query, values);
+    return data;
+}
+
+//get comment by id;
+exports.getCommentById = async function getCommentById(id) {
+    let query = "SELECT * FROM comments WHERE ID = ?";
+    let values = [id];
     let data = await db.run_query(query, values);
     return data;
 }

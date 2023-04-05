@@ -15,7 +15,7 @@ const router = Router({prefix: '/api/v1/users'});
 //and url structuere
 //needed to then run each of the functions below
 router.get('/', auth, getAllUsers);
-router.post('/', bodyParser(), validateUser, createUser)
+router.post('/', bodyParser(), validateUser, createUser)//No auth so anyone can signup
 
 router.get('/:id([0-9]{1,})', auth, getUserById); 
 router.put('/:id([0-9]{1,})', bodyParser(), auth, validateUserUpdate, updateUser); 

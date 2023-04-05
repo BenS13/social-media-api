@@ -3,9 +3,10 @@ const bodyParser = require('koa-bodyparser');
 const posts = require('../models/posts');
 const comments = require('../models/comments');
 const likes = require('../models/likes');
-const {validatePost, validateComment, validateLike} = require('../controllers/validation');
+const {validatePost, validatePostUpdate, validateComment, validateLike} = require('../controllers/validation');
 const { validate } = require('jsonschema');
 const auth = require('../controllers/auth');
+const can = require('../permissions/posts');
 
 //base URL structure to route to posts
 const router = Router({prefix: '/api/v1/posts'});
@@ -19,19 +20,19 @@ const router = Router({prefix: '/api/v1/posts'});
 
 //post routes
 router.get('/', getAllPosts);
-router.post('/', bodyParser(), validatePost, auth, createPost)
+router.post('/', bodyParser(),auth, validatePost, createPost)
 router.get('/:id([0-9]{1,})', getPostById); 
-router.put('/:id([0-9]{1,})', bodyParser(), validatePost, auth, updatePost); 
+router.put('/:id([0-9]{1,})', bodyParser(), auth, validatePostUpdate ,updatePost); 
 router.del('/:id([0-9]{1,})', auth, deletePost);
 
 //likes routes
 router.get('/:id([0-9]{1,})/likes', getLikes);
-router.post('/:id([0-9]{1,})/likes', validateLike, auth, addLike);
-router.del('/:id([0-9]{1,})/likes', validateLike, auth, removeLike);
+router.post('/:id([0-9]{1,})/likes', auth, validateLike,  addLike);
+router.del('/:id([0-9]{1,})/likes', auth, validateLike,  removeLike);
 
 
 //comments routes (Routes for accessing comments by ID is in comments.js)
-router.post('/:id([0-9]{1,})/comments', bodyParser(), validateComment, createComment)
+router.post('/:id([0-9]{1,})/comments', bodyParser(), auth, validateComment, createComment)
 router.get('/:id([0-9]{1,})/comments', getComments); 
 
 
@@ -61,7 +62,7 @@ async function getPostById(ctx){
 //async fucntion to create a post
 async function createPost(ctx){
     let userId = ctx.state.user.ID;
-    const body = ctx.request.body;
+    const postBody = ctx.request.body;
     let post = await posts.createPost(userId, postBody);
     if (post){
         ctx.status=201;
@@ -74,29 +75,42 @@ async function createPost(ctx){
 
 //async function to update a post
 async function updatePost(ctx){
-    let postId = ctx.params.id;
-    const postBody = ctx.request.body;
-    let post = await posts.updatePost(postId, postBody);
-    if (post){
-        ctx.status = 201;
-        ctx.body = {message: "Post updated",
-                    ID: postId};
-    }else {
-        ctx.status = 500;//Server error
+    let postId = ctx.params.id;//Get post id from url
+    const postBody = ctx.request.body;//Get post data from body of request
+    let post = await posts.getPostById(postId);//Check post exists
+    if (post.length){
+        let data = post[0];
+        const allowed = can.updatePost(ctx.state.user, data);//Check permissions
+        if (!allowed.granted) {
+            ctx.status = 403;
+        } else{
+            let result = await posts.updatePost(postId, postBody);//Update post
+            if (result.affectedRows) {
+                ctx.status = 201;
+                ctx.body = {updated: true, ID: postId};
+            }
+        }
+    }else{
+        ctx.status = 500;
     }
-
 }
 
 //async function to delete a post
 async function deletePost(ctx){
-    let id = ctx.params.id;
-    let post = await posts.deletePost(id);
-    if (post){
-        ctx.status = 200;
-        ctx.body = { message: "Post deleted",
-                    ID: id };
-    }else {
-        ctx.status = 500;//Server error
+    let postId = ctx.params.id;
+    let post = await posts.getPostById(postId);//Check post exists
+    if (post.length){
+        let data = post[0];
+        const allowed = can.deletePost(ctx.state.user, data);
+        if (!allowed.granted){
+            ctx.status = 403;
+        }else{
+            let result = await posts.deletePost(postId);//Delete post
+            ctx.status = 200;
+            ctx.body = {message: "Post Deleted", ID:postId};
+        }
+    }else{
+        ctx.status = 500;
     }
 }
 
@@ -156,10 +170,15 @@ async function getComments(ctx){
 //'api/v1/posts/{postid}/comments
 //create comment for post with {post id}
 async function createComment(ctx){
+    
+    
     let postId = ctx.params.id;//get post id from url
     let userId = ctx.state.user.ID;//Get user ID
     const commentBody = ctx.request.body;//get body of request
-    let comment = await comments.createComment(userId, postId, commentBody);//add comment to database
+    
+    let comment = await comments.createComment(userId, postId, commentBody);
+    ctx.status = 201;//add comment to database
+    
     if (comment){
         ctx.status=201;//return code success
         ctx.body = {ID: comment.insertId,
@@ -172,5 +191,3 @@ async function createComment(ctx){
 }
 
 module.exports = router;
-
-//PULL TEST REMOVE LATER

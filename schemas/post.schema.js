@@ -1,27 +1,58 @@
 module.exports = {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "/post",
-    "title": "Post",
-    "description": "A post from a user",
-    "type": "object",
-    "properties": {
-        "title": {
-            "description": "Title of the post",
-            "type": "string"
+
+    "createPost": {
+        "id": "#createPost",
+        "title": "CreatePost",
+        "description": "Data needed from user to create a post",
+        "type" : "object",
+        "properties": {
+            "title": {
+                "description": "Title for the post",
+                "type": "string"
+            },
+            "allText": {
+                "description": "Main body of the post",
+                "type": "string"
+            },
+            "imageURL": {
+                "description": "Image for the post",
+                "type" : "string",
+                "format" : "uri"
+            },
+            "authorID": {
+                "description": "ID of post owner",
+                "type": "integer"
+            } 
         },
-        "allText": {
-            "description": "Body text of the post",
-            "type": "string"
-        },
-        "imageURL": {
-            "description": "URL for image uploaded in post",
-            "type": "uri"
-        },
-        "authorID": {
-            "description": "User ID of post author",
-            "type": "integer",
-            "minimum": 0
-        },
+        "required" : ["title", "allText"],
+        "aditionalProperties" : false
     },
-    "required": ["title", "allText" ]
+
+    "updatePost": {
+        "id" : "#updatePost",
+        "title": "UpdatePost",
+        "description": "Data required to update a post",
+        "type": "object",
+        "properties": {
+            "title": {
+                "description": "Title for the post",
+                "type": "string"
+            },
+            "allText": {
+                "description": "Main body of the post",
+                "type": "string"
+            },
+            "imageURL": {
+                "description": "Image for the post",
+                "type" : "string",
+                "format" : "uri"
+            },
+            "authorID": {
+                "description": "ID of post owner",
+                "type": "integer"
+            }
+        },
+        "additionalPropeties" : false
+    }
 }

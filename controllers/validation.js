@@ -1,123 +1,48 @@
 const {Validator, ValidationError} = require('jsonschema');
-const postSchema = require('../schemas/post.schema.js');
+
+const postSchema = require('../schemas/post.schema.js').createPost;
+const postUpdateSchema = require('../schemas/post.schema.js').updatePost;
 
 const userSchema = require('../schemas/user.schema.js').user;
 const userUpdateSchema = require('../schemas/user.schema.js').updateUser;
 
-const commentSchema = require('../schemas/comment.schema.js');
+const commentSchema = require('../schemas/comment.schema.js').comment;
 
 const likeSchema = require('../schemas/like.schema')
 
-const v = new Validator();
 
-exports.validatePost = async (ctx, next) => {
-
+//Takes schema and resource
+//Returns hanlder functuin (ctx, next) //Adapted from https://github.coventry.ac.uk/6003CEM/back-end-demo-code/blob/master/controllers/validation.js
+const makeKoaValidator = (schema, resource) => {
+    const v = new Validator();
     const validateOptions = {
         throwError: true,
-        allowUnknownAttributes: false
+        propertyName: resource
     };
 
-    const requestBody = ctx.request.body;
+    const handler = async (ctx, next) => {
+        const body = ctx.request.body;
 
-    try{
-        v.validate(requestBody, postSchema, validateOptions);
-        await next()
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            ctx.body = error;
-            ctx.status = 400;
-        } else {
-            throw error;
+        try{
+            v.validate(body, schema, validateOptions);
+            await next();
+        } catch (error) {
+            if (error instanceof ValidationError) {
+                ctx.body = error;
+                ctx.status = 400;
+            }
         }
     }
+
+    return handler;
 }
 
-exports.validateUser = async (ctx, next) => {
+exports.validatePost = makeKoaValidator(postSchema, 'createPost');
+exports.validatePostUpdate = makeKoaValidator(postUpdateSchema, 'updatePost');
 
-    const validateOptions = {
-        throwError: true,
-        allowUnknownAttributes: false
-    };
+exports.validateUser = makeKoaValidator(userSchema, 'user');
+exports.validateUserUpdate = makeKoaValidator(userUpdateSchema, 'updateUser');
 
-    const requestBody = ctx.request.body;
+exports.validateComment = makeKoaValidator(commentSchema, 'comment');
 
-    try{
-        v.validate(requestBody, userSchema, validateOptions);
-        await next()
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            ctx.body = error;
-            ctx.status = 400;
-        } else {
-            throw error;
-        }
-    }
-}
-
-exports.validateUserUpdate = async (ctx, next) => {
-
-    const validateOptions = {
-        throwError: true,
-        allowUnknownAttributes: false
-    };
-
-    const requestBody = ctx.request.body;
-
-    try{
-        v.validate(requestBody, userUpdateSchema, validateOptions);
-        await next()
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            ctx.body = error;
-            ctx.status = 400;
-        } else {
-            throw error;
-        }
-    }
-}
-
-exports.validateComment = async (ctx, next) => {
-
-    const validateOptions = {
-        throwError: true,
-        allowUnknownAttributes: false
-    };
-
-    const requestBody = ctx.request.body;
-
-    try{
-        v.validate(requestBody, commentSchema, validateOptions);
-        await next()
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            ctx.body = error;
-            ctx.status = 400;
-        } else {
-            throw error;
-        }
-    }
-}
-
-exports.validateLike = async (ctx, next) => {
-
-    const validateOptions = {
-        throwError: true,
-        allowUnknownAttributes: false
-    };
-
-    const requestBody = ctx.request.body;
-
-    try{
-        v.validate(requestBody, likeSchema, validateOptions);
-        await next()
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            ctx.body = error;
-            ctx.status = 400;
-        } else {
-            throw error;
-        }
-    }
-}
-
-
+exports.validateLike = makeKoaValidator(likeSchema, 'like');

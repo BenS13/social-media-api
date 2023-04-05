@@ -14,5 +14,4 @@ module.exports = {
             "type": "integer"
         },
     },
-    "required" : ["postID", "authorID"]
 }

@@ -35,6 +35,6 @@ exports.readUser = (requester, data) =>
 exports.updateUser = (requester, data) =>
     ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('update').sync().on('user');
 
-//Only allow users to delete their user data
+//Only allow users to delete THEIR user data
 exports.deleteUser = (requester, data) =>
     ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('delete').sync().on('user');
