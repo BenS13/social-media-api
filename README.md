@@ -1,3 +1,2 @@
 # social-media-api
-Instillation?
-Test?
+Created for 6003CEM Web API Development
