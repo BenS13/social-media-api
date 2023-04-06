@@ -15,7 +15,8 @@ const auth = require('../controllers/auth');
 const can = require('../permissions/posts');
 
 /**Base URL structure for posts */
-const router = Router({prefix: '/api/v1/posts'});
+const prefix = '/api/v1/posts';
+const router = Router({prefix: prefix});
 
 
 //define the 
@@ -53,10 +54,21 @@ router.get('/:id([0-9]{1,})/comments', getComments);
 async function getAllPosts(ctx){
     let post = await posts.getAllPosts();
     if (post.length) {
+        const postBody = post.map(post =>{
+            //extract fields we want to send back
+            const {ID, title, allText, imageURL, authorID} = post;
+            const links = {
+                comments: `${ctx.protocol}://${ctx.host}${prefix}/${post.ID}/comments`,
+                likes: `${ctx.protocol}://${ctx.host}${prefix}/${post.ID}/likes`,
+                self: `${ctx.protocol}://${ctx.host}${prefix}/${post.ID}`
+            }
+            return {ID, title, allText, imageURL, authorID, links};
+        });
+        ctx.body = postBody;
         ctx.status = 200;
-        ctx.body = post;
     }else {
         ctx.status = 404;//Not found
+        ctx.body = {status: ctx.status, message: "Posts not found"}
     }
 }
 
@@ -72,6 +84,7 @@ async function getPostById(ctx){
         ctx.body = post[0];
     }else {
         ctx.status = 404;//Not found
+        ctx.body = {status: ctx.status, message: "Posts not found id out of range"}
     }
 }
 
@@ -89,6 +102,7 @@ async function createPost(ctx){
                 ID: post.insertId}
     }else {
         ctx.status = 500;//Server error
+        ctx.body = {status: ctx.status, message: "Error when creating post"}
     }
 }
 
@@ -114,6 +128,7 @@ async function updatePost(ctx){
         }
     }else{
         ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "Post not found"}
     }
 }
 
@@ -135,7 +150,8 @@ async function deletePost(ctx){
             ctx.body = {message: "Post Deleted", ID:postId};
         }
     }else{
-        ctx.status = 500;
+        ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "Post not found"}
     }
 }
 
@@ -152,7 +168,8 @@ async function getLikes(ctx){
         ctx.status = 200;
         ctx.body = like ? like: 0;
     }else{
-        ctx.status = 404;//Rescourse not found
+        ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "Post not found"}//Rescourse not found
     }
 }
 
@@ -170,6 +187,7 @@ async function addLike(ctx){
                     message: 'liked'};
     }else {
         ctx.status = 500;//Server error
+        ctx.body = {status: ctx.status, message: "Error when liking post"}
     }
 }
 
@@ -187,6 +205,7 @@ async function removeLike(ctx){
                     message: "disliked"};
     }else {
         ctx.status = 500;//Server error
+        ctx.body = {status: ctx.status, message: "Error when removing like"}
     }
 }
 
@@ -202,6 +221,7 @@ async function getComments(ctx){
         ctx.status = 200;
     }else {
         ctx.status = 404;//Not found
+        ctx.body = {status: ctx.status, message: "Comments not found"}
     }
 }
 
@@ -226,6 +246,7 @@ async function createComment(ctx){
                 message : "Comment created"}
     }else {
         ctx.status = 500;//server error
+        ctx.body = {status: ctx.status, message: "Error when creating comment"}
     }
 }
 

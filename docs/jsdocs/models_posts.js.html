@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/users.js</title>
+    <title>JSDoc: Source: models/posts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/users.js</h1>
+    <h1 class="page-title">Source: models/posts.js</h1>
 
     
 
@@ -27,80 +27,78 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Module to perform CRUD opertations on database for users resources
- * @module models/users
+ * Module to perfom CRUD opertations on posts table
+ * @module models/posts
  */
-
-/**Import database helper module to query database */
-const db = require('../helpers/database');
+const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
 /**
- * Async function that returns users details based on id
- * @param {number} id The id of the user, taken from URL
- * @returns {object} - An indexable sql object containing users details
+ * Async function to get a post by its id
+ * @param {number} id - id of post
+ * @returns {object} - itteratbale data object
  */
-exports.getUserById = async function getUserById (id) {
-    let query = "SELECT * FROM users WHERE ID = ?";
+exports.getPostById = async function getPostById (id) {
+    let query = "SELECT * FROM posts WHERE ID = ?";
     let values = [id];
     let data = await db.run_query(query, values);
-    return data;
+    return data
 };
 
 /**
- * Async functiion that returns users data based on username
- * @param {string} username Username of the user
- * @returns {object} An indexable sql object containing users details
+ * Async function to get all posts
+ * @returns {object} - itteratbale data object
  */
-exports.getUserByUsername = async function getUserbyUsername (username) {
-    let query = "SELECT * FROM users WHERE username = ?";
-    let values = [username];
-    let data = await db.run_query(query, values);
-    return data;
-}
-
-/**
- * Async function that returns all users data
- * @returns {object} - An indexable sql object containing users details
- */
-exports.getAllUsers = async function getAllUsers() {
-    let query = "SELECT * FROM users;";
+exports.getAllPosts = async function getAllPosts() {
+    let query = "SELECT * FROM posts;";
     let data = await db.run_query(query);
     return data;
 };
 
 /**
- * Async function that returns confirmation of succesful insert into database
- * @param {object} user - A user object containing all new user details
- * @returns {object} - Object with size>0 if user created succesfully
+ * Async function to create a post
+ * @param {number} userId 
+ * @param {object} postBody 
+ * @returns {object} - itteratbale data object
  */
-exports.createUser = async function createUser(user) {
-    let query = "INSERT INTO users SET ?";
-    let data = await db.run_query(query, user);
-    return data;
-};
-
-/**
- * Async function that returns confirmation of succesful update
- * @param {object} user - Object containing details to update
- * @param {number} id - The users ID
- * @returns {object} - Object with size>0 if user updated succesfully
- */
-exports.updateUser = async function updateUser(user, id){
-    let query = "UPDATE users SET ? WHERE ID = ?";
-    let values = [user, id];
+exports.createPost = async function createPost(userId,postBody) {
+    let query = "INSERT INTO posts SET ?"; 
+    postBody["authorID"] = userId;
+    let values = [postBody];
     let data = await db.run_query(query, values);
     return data;
 };
 
+/**
+ * Async function to update a post
+ * @param {number} postId 
+ * @param {object} postBody 
+ * @returns {object} - itteratbale data object
+ */
+exports.updatePost = async function updatePost(postId, postBody){
+    let query = "UPDATE posts SET ? WHERE ID = ?";
+    let values = [postBody, postId];
+    let data = await db.run_query(query, values);
+    return data;
+};
 
 /**
- * Async function that returns confirmation of succesful delete
- * @param {number} id - The users ID
- * @returns {object} - Object with size>0 if user created succesfully
+ * Async function to delete a post
+ * @param {number} postId 
+ * @returns {object} - itteratbale data object
  */
-exports.deleteUser = async function deleteUser(id) {
-    let query = "DELETE FROM users WHERE ID = ?";
-    let data = await db.run_query(query, id);
+exports.deletePost = async function deletePost(postId) {
+    //Delete comments for post
+    //Delete likes for post
+    //Delete post
+    let values = [postId];
+    let query = "DELETE FROM comments WHERE postID = ?"
+    await db.run_query(query, values);
+
+    query = "DELETE FROM likes WHERE postID = ?"
+    await db.run_query(query, values);
+
+    query = "DELETE FROM posts WHERE ID = ?";
+    let data = await db.run_query(query, values);
     return data
 };</code></pre>
         </article>

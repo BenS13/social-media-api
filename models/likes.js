@@ -1,6 +1,14 @@
+/**
+ * Module to add likes to a post
+ * @module models/likes
+ */
 const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
-//get likes for post by postID
+/**
+ * Async function to get number of likes for post
+ * @param {number} postId 
+ * @returns {object} - count of likes
+ */
 exports.getLikes = async function getLikes(postId){
     let query = "SELECT COUNT(*) as 'count' FROM likes WHERE postID = ?";
     let values = [postId];
@@ -9,7 +17,12 @@ exports.getLikes = async function getLikes(postId){
 };
 
 
-//Not needed as likes can be added in the posts route themselves
+/**
+ * Async function to add a like to a post
+ * @param {number} userId 
+ * @param {number} postId 
+ * @returns {object} - Confirmation of success
+ */
 exports.addLike = async function addLike(userId, postId){
     let query = "INSERT INTO  likes SET postID=?, authorID=? ON DUPLICATE KEY UPDATE postID=postID;";
     const data = await db.run_query(query, [postId, userId]);
@@ -20,6 +33,13 @@ exports.addLike = async function addLike(userId, postId){
     //if so do nothing
 };
 
+
+/**
+ * Async function to remove a like from a post
+ * @param {number} userId 
+ * @param {number} postId 
+ * @returns {object} - confirmation of removal
+ */
 exports.removeLike = async function removeLike(userId,postId){
     let query = "DELETE FROM likes WHERE postID=? AND authorID=?;";
     const data = await db.run_query(query, [postId, userId]);

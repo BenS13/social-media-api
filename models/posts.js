@@ -1,6 +1,14 @@
+/**
+ * Module to perfom CRUD opertations on posts table
+ * @module models/posts
+ */
 const db = require('../helpers/database');//import our database.js method to query database [query, values]
 
-//get a post by id
+/**
+ * Async function to get a post by its id
+ * @param {number} id - id of post
+ * @returns {object} - itteratbale data object
+ */
 exports.getPostById = async function getPostById (id) {
     let query = "SELECT * FROM posts WHERE ID = ?";
     let values = [id];
@@ -8,14 +16,22 @@ exports.getPostById = async function getPostById (id) {
     return data
 };
 
-//get all posts
+/**
+ * Async function to get all posts
+ * @returns {object} - itteratbale data object
+ */
 exports.getAllPosts = async function getAllPosts() {
     let query = "SELECT * FROM posts;";
     let data = await db.run_query(query);
     return data;
 };
 
-//create new post
+/**
+ * Async function to create a post
+ * @param {number} userId 
+ * @param {object} postBody 
+ * @returns {object} - itteratbale data object
+ */
 exports.createPost = async function createPost(userId,postBody) {
     let query = "INSERT INTO posts SET ?"; 
     postBody["authorID"] = userId;
@@ -24,7 +40,12 @@ exports.createPost = async function createPost(userId,postBody) {
     return data;
 };
 
-//update post
+/**
+ * Async function to update a post
+ * @param {number} postId 
+ * @param {object} postBody 
+ * @returns {object} - itteratbale data object
+ */
 exports.updatePost = async function updatePost(postId, postBody){
     let query = "UPDATE posts SET ? WHERE ID = ?";
     let values = [postBody, postId];
@@ -32,7 +53,11 @@ exports.updatePost = async function updatePost(postId, postBody){
     return data;
 };
 
-//delete post
+/**
+ * Async function to delete a post
+ * @param {number} postId 
+ * @returns {object} - itteratbale data object
+ */
 exports.deletePost = async function deletePost(postId) {
     //Delete comments for post
     //Delete likes for post

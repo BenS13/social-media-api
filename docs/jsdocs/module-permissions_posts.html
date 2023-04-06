@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/special</title>
+    <title>JSDoc: Module: permissions/posts</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/special</h1>
+    <h1 class="page-title">Module: permissions/posts</h1>
 
     
 
@@ -34,7 +34,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Module that routes users requesting the welcomepage</div>
+            <div class="description">Module to control ownership of posts resources</div>
         
 
         
@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line1">line 1</a>
+        <a href="permissions_posts.js.html">permissions/posts.js</a>, <a href="permissions_posts.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -98,72 +98,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Base URL for welcome page
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -174,7 +108,7 @@
     
 
     
-    <h4 class="name" id="~privateWelcomeMessage"><span class="type-signature">(inner) </span>privateWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".deletePost"><span class="type-signature">(static) </span>deletePost<span class="signature">(requester, data)</span><span class="type-signature"> &rarr; (nullable) {allowed}</span></h4>
     
 
     
@@ -182,7 +116,7 @@
 
 
 <div class="description">
-    Function to display private message if authenticated
+    Check if user owns post for deleting
 </div>
 
 
@@ -218,13 +152,13 @@
 
         <tr>
             
-                <td class="name"><code>ctx</code></td>
+                <td class="name"><code>requester</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">*</span>
 
 
             
@@ -234,7 +168,30 @@
 
             
 
-            <td class="description last">Koa response/request object</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -275,7 +232,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line30">line 30</a>
+        <a href="permissions_posts.js.html">permissions/posts.js</a>, <a href="permissions_posts.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -300,6 +257,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">allowed</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -311,7 +286,7 @@
     
 
     
-    <h4 class="name" id="~publicWelcomeMessage"><span class="type-signature">(inner) </span>publicWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".updatePost"><span class="type-signature">(static) </span>updatePost<span class="signature">(requester, data)</span><span class="type-signature"> &rarr; (nullable) {allowed}</span></h4>
     
 
     
@@ -319,7 +294,7 @@
 
 
 <div class="description">
-    Function to display welcome message
+    Check if user owns post for updating
 </div>
 
 
@@ -355,13 +330,13 @@
 
         <tr>
             
-                <td class="name"><code>ctx</code></td>
+                <td class="name"><code>requester</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">*</span>
 
 
             
@@ -371,7 +346,30 @@
 
             
 
-            <td class="description last">Koa response/request object</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -412,7 +410,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line20">line 20</a>
+        <a href="permissions_posts.js.html">permissions/posts.js</a>, <a href="permissions_posts.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -437,6 +435,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">allowed</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

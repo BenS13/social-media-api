@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/special</title>
+    <title>JSDoc: Module: integrations/inshorts/inshorts-api
+https://github.com/cyberboysumanjay/Inshorts-News-API</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +18,8 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/special</h1>
+    <h1 class="page-title">Module: integrations/inshorts/inshorts-api
+https://github.com/cyberboysumanjay/Inshorts-News-API</h1>
 
     
 
@@ -34,7 +36,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Module that routes users requesting the welcomepage</div>
+            <div class="description">Module using axios to send requests to the inshort news api</div>
         
 
         
@@ -69,7 +71,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line1">line 1</a>
+        <a href="integrations_inshorts_inshorts-api.js.html">integrations/inshorts/inshorts-api.js</a>, <a href="integrations_inshorts_inshorts-api.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -98,72 +100,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Base URL for welcome page
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -174,7 +110,9 @@
     
 
     
-    <h4 class="name" id="~privateWelcomeMessage"><span class="type-signature">(inner) </span>privateWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="integrations/inshorts/inshorts-api
+https://github.com/cyberboysumanjay/Inshorts-News-APImodule:.getNewsData"><span class="type-signature"></span>integrations/inshorts/inshorts-api
+https://github.com/cyberboysumanjay/Inshorts-News-APImodule:.getNewsData<span class="signature">(category_name)</span><span class="type-signature"> &rarr; {json}</span></h4>
     
 
     
@@ -182,7 +120,7 @@
 
 
 <div class="description">
-    Function to display private message if authenticated
+    Async function that returns specified data from news API
 </div>
 
 
@@ -218,13 +156,13 @@
 
         <tr>
             
-                <td class="name"><code>ctx</code></td>
+                <td class="name"><code>category_name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
             
@@ -234,7 +172,7 @@
 
             
 
-            <td class="description last">Koa response/request object</td>
+            <td class="description last">Category users wants news on</td>
         </tr>
 
     
@@ -275,7 +213,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line30">line 30</a>
+        <a href="integrations_inshorts_inshorts-api.js.html">integrations/inshorts/inshorts-api.js</a>, <a href="integrations_inshorts_inshorts-api.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -300,143 +238,28 @@
 
 
 
-
-
-
-
+<h5>Returns:</h5>
 
         
-            
-
-    
-
-    
-    <h4 class="name" id="~publicWelcomeMessage"><span class="type-signature">(inner) </span>publicWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Function to display welcome message
+<div class="param-desc">
+    - Returns result data in JSON format
 </div>
 
 
 
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ctx</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
+<span class="param-type">json</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Koa response/request object</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line20">line 20</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 

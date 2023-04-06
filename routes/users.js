@@ -35,6 +35,7 @@ async function getAllUsers(ctx){
             ctx.body = user;
         } else {
             ctx.status = 404;
+            ctx.body = {status: ctx.status, message: "Users not found"}
         }
     }
 }
@@ -58,6 +59,7 @@ async function getUserById(ctx){
         }
     }else {
         ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "User not found"}
     }
 }
 
@@ -75,6 +77,7 @@ async function createUser(ctx){
         ctx.body = {ID: user.insertId, created : true}
     }else {
         ctx.status = 500;
+        ctx.body = {status: ctx.status, message: "Error when creating user"}
     }
 }
 
@@ -102,6 +105,7 @@ async function updateUser(ctx){
         } 
     }else {
         ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "User not found"}
     }
 }
 
@@ -126,7 +130,8 @@ async function deleteUser(ctx){
             }
         }
     }else {
-        ctx.status = 500;
+        ctx.status = 404;
+        ctx.body = {status: ctx.status, message: "User not found"}
     }
 }
 

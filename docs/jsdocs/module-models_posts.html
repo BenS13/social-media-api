@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: models/users</title>
+    <title>JSDoc: Module: models/posts</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: models/users</h1>
+    <h1 class="page-title">Module: models/posts</h1>
 
     
 
@@ -34,7 +34,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Module to perform CRUD opertations on database for users resources</div>
+            <div class="description">Module to perfom CRUD opertations on posts table</div>
         
 
         
@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line1">line 1</a>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -98,72 +98,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~db"><span class="type-signature">(inner, constant) </span>db<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Import database helper module to query database
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -174,7 +108,7 @@
     
 
     
-    <h4 class="name" id=".createUser"><span class="type-signature">(static) </span>createUser<span class="signature">(user)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".createPost"><span class="type-signature">(static) </span>createPost<span class="signature">(userId, postBody)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -182,7 +116,7 @@
 
 
 <div class="description">
-    Async function that returns confirmation of succesful insert into database
+    Async function to create a post
 </div>
 
 
@@ -218,7 +152,30 @@
 
         <tr>
             
-                <td class="name"><code>user</code></td>
+                <td class="name"><code>userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postBody</code></td>
             
 
             <td class="type">
@@ -234,7 +191,7 @@
 
             
 
-            <td class="description last">A user object containing all new user details</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -275,7 +232,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line48">line 48</a>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -304,7 +261,7 @@
 
         
 <div class="param-desc">
-    - Object with size>0 if user created succesfully
+    - itteratbale data object
 </div>
 
 
@@ -333,7 +290,7 @@
     
 
     
-    <h4 class="name" id=".deleteUser"><span class="type-signature">(static) </span>deleteUser<span class="signature">(id)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".deletePost"><span class="type-signature">(static) </span>deletePost<span class="signature">(postId)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -341,7 +298,276 @@
 
 
 <div class="description">
-    Async function that returns confirmation of succesful delete
+    Async function to delete a post
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>postId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - itteratbale data object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAllPosts"><span class="type-signature">(static) </span>getAllPosts<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Async function to get all posts
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - itteratbale data object
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getPostById"><span class="type-signature">(static) </span>getPostById<span class="signature">(id)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Async function to get a post by its id
 </div>
 
 
@@ -393,7 +619,7 @@
 
             
 
-            <td class="description last">The users ID</td>
+            <td class="description last">id of post</td>
         </tr>
 
     
@@ -434,7 +660,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line73">line 73</a>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -463,7 +689,7 @@
 
         
 <div class="param-desc">
-    - Object with size>0 if user created succesfully
+    - itteratbale data object
 </div>
 
 
@@ -492,7 +718,7 @@
     
 
     
-    <h4 class="name" id=".getAllUsers"><span class="type-signature">(static) </span>getAllUsers<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".updatePost"><span class="type-signature">(static) </span>updatePost<span class="signature">(postId, postBody)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -500,117 +726,7 @@
 
 
 <div class="description">
-    Async function that returns all users data
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - An indexable sql object containing users details
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getUserById"><span class="type-signature">(static) </span>getUserById<span class="signature">(id)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Async function that returns users details based on id
+    Async function to update a post
 </div>
 
 
@@ -646,7 +762,7 @@
 
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>postId</code></td>
             
 
             <td class="type">
@@ -662,7 +778,30 @@
 
             
 
-            <td class="description last">The id of the user, taken from URL</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>postBody</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -703,7 +842,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line14">line 14</a>
+        <a href="models_posts.js.html">models/posts.js</a>, <a href="models_posts.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -732,348 +871,7 @@
 
         
 <div class="param-desc">
-    - An indexable sql object containing users details
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getUserByUsername"><span class="type-signature">(static) </span>getUserByUsername<span class="signature">(username)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Async functiion that returns users data based on username
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>username</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Username of the user</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line26">line 26</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    An indexable sql object containing users details
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".updateUser"><span class="type-signature">(static) </span>updateUser<span class="signature">(user, id)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Async function that returns confirmation of succesful update
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>user</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Object containing details to update</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The users ID</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_users.js.html">models/users.js</a>, <a href="models_users.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Object with size>0 if user updated succesfully
+    - itteratbale data object
 </div>
 
 

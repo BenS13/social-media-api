@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: integrations/inshorts/inshorts-api.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,51 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: integrations/inshorts/inshorts-api.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Module using axios to send requests to the inshort news api
+ * @module integrations/inshorts/inshorts-api
+ * https://github.com/cyberboysumanjay/Inshorts-News-API
+ */
 
+const axios = require('axios');
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
+/**
+ * Async function that returns specified data from news API
+ * @param {string} category_name - Category users wants news on
+ * @returns {json} - Returns result data in JSON format
+ */
+exports.getNewsData = async function getNewsData(category_name){
+    let url = `https://inshorts.deta.dev/news?category=${category_name}`
+    let result;
     
+    const config = {
+        method: 'get',
+        url: url
+    }
 
+    result = await axios(config);
+    console.log(result.status);
+    //console.log(result.data);
+    console.log(result.headers);
 
-
-
-
+    if (result.status = 200 &amp;&amp; result.data['success'] == true) {
+        //console.log(result.data['success']);
+        return result.data;
+    }else{
+        return undefined;
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 

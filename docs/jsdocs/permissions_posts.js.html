@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: permissions/posts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,62 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: permissions/posts.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Module to control ownership of posts resources
+ * @module permissions/posts
+ */
+const AccessControl = require('role-acl');
+const ac = new AccessControl();
 
 
-    <h3> </h3>
+/**Allow users to read posts they own */
+ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('read').on('post');
+/**Allow users to update their posts */
+ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('update').on('post',['*', '!ID', '!authorID']);
+/**Allow users to delete their posts */
+ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('delete').on('post');
 
 
+/**Allow admin to delete any post */
+ac.grant('admin').execute('delete').on('post');
+ac.grant('admin').execute('read').on('posts');
+/**Allow admin to read any post */
+ac.grant('admin').execute('read').on('post');
+/**Allow admin to update any post */
+ac.grant('admin').execute('update').on('post');
+
+/**
+ * Check if user owns post for updating
+ * @param {*} requester 
+ * @param {*} data 
+ * @returns {allowed?}
+ */
+exports.updatePost = (requester, data) => 
+    ac.can(requester.role).context({requester:requester.ID, owner:data.authorID}).execute('update').sync().on('post');
 
 
+/**
+ * Check if user owns post for deleting
+ * @param {*} requester 
+ * @param {*} data 
+ * @returns {allowed?}
+ */
+exports.deletePost = (requester, data) => 
+    ac.can(requester.role).context({requester:requester.ID, owner:data.authorID}).execute('delete').sync().on('post');
 
 
-
-
-
-
-    
-
-
-
-
-
+</code></pre>
+        </article>
+    </section>
 
 
 

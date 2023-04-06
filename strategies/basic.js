@@ -1,13 +1,36 @@
+/**
+ * Module that handles authentication for users
+ * @module strategies/basic
+ * @owner Adapted from week4 Lab Authentication and Permissions
+ */
 
-//inspired from week4 Lab Authentication and Permissions
+
+
 const BasicStrategy = require('passport-http').BasicStrategy
 const users = require('../models/users');
+const sha256 = require('sha256');
 
+/**
+ * Function that checks password in DB against provided password
+ * @param {object} user - User object containig users details
+ * @param {string} password - Supplied password to check against
+ * @returns {bool} - True if password correct
+ */
 const verifyPassword = function (user,password){
     //compare password in storage to supplied password
-    return user.password === password;
+    hashed_password = sha256(password);
+    console.log(hashed_password);
+    console.log(user.password);
+    return (user.password == hashed_password);
 }
 
+/**
+ * Async function to authenticate a user
+ * @param {string} username - Username of user
+ * @param {string} password - Password of user
+ * @param {function} done - Return done() function with errors if needed
+ * @returns {function} - Returns done()
+ */
 const compareUserAndPass = async (username, password, done) => {
     //look up user in DB
     //check if supplied password == stored password

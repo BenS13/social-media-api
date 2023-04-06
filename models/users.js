@@ -6,6 +6,9 @@
 /**Import database helper module to query database */
 const db = require('../helpers/database');
 
+/**Import sha256 to hash users passwords */
+const sha256 = require('sha256');
+
 /**
  * Async function that returns users details based on id
  * @param {number} id The id of the user, taken from URL
@@ -47,6 +50,9 @@ exports.getAllUsers = async function getAllUsers() {
  */
 exports.createUser = async function createUser(user) {
     let query = "INSERT INTO users SET ?";
+    const password = user.password;
+    const hashed_password = sha256(password);
+    user.password = hashed_password;
     let data = await db.run_query(query, user);
     return data;
 };

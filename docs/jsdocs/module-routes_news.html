@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/special</title>
+    <title>JSDoc: Module: routes/news</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/special</h1>
+    <h1 class="page-title">Module: routes/news</h1>
 
     
 
@@ -34,7 +34,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Module that routes users requesting the welcomepage</div>
+            <div class="description">Module that connects to a news api and returns data to users</div>
         
 
         
@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line1">line 1</a>
+        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -102,13 +102,13 @@
 
         
             
-<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"></span></h4>
+<h4 class="name" id="~prefix"><span class="type-signature">(inner, constant) </span>prefix<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Base URL for welcome page
+    Define prefix for news resources
 </div>
 
 
@@ -146,7 +146,69 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line10">line 10</a>
+        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Define base URL for accessing a news API
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -174,7 +236,7 @@
     
 
     
-    <h4 class="name" id="~privateWelcomeMessage"><span class="type-signature">(inner) </span>privateWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getTechNews"><span class="type-signature">(async, inner) </span>getTechNews<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
     
 
     
@@ -182,7 +244,8 @@
 
 
 <div class="description">
-    Function to display private message if authenticated
+    Async function that gets category name from url,
+Then uses the newsAPI module to send a request to the xternal api
 </div>
 
 
@@ -234,7 +297,7 @@
 
             
 
-            <td class="description last">Koa response/request object</td>
+            <td class="description last">Koa reponse/request object</td>
         </tr>
 
     
@@ -275,7 +338,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line30">line 30</a>
+        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -311,7 +374,7 @@
     
 
     
-    <h4 class="name" id="~publicWelcomeMessage"><span class="type-signature">(inner) </span>publicWelcomeMessage<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~newsMenu"><span class="type-signature">(inner) </span>newsMenu<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
     
 
     
@@ -319,7 +382,7 @@
 
 
 <div class="description">
-    Function to display welcome message
+    Function that returns a menu style response to the user
 </div>
 
 
@@ -371,7 +434,7 @@
 
             
 
-            <td class="description last">Koa response/request object</td>
+            <td class="description last">Koa request/response object</td>
         </tr>
 
     
@@ -412,7 +475,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_special.js.html">routes/special.js</a>, <a href="routes_special.js.html#line20">line 20</a>
+        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
