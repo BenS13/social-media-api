@@ -1,40 +1,42 @@
+/**
+ * Module to control ownership of user resources
+ * @module permissions/users
+ */
+
 const AccessControl = require('role-acl');
 const ac = new AccessControl();
 
 
 
-//If the authenticated requester ID == ownerID(userID from DB)
-//Allow users with role:'user'
-//**To read all the recouces related to their ID
-//**Except their password or passwordSalt
+/**Allow users to read their own login details */
 ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('read').on('user', ['*', '!password', '!passwordSalt']);
 
-//**To update all the [about, password, email] resources
-//**Related to their ID
+/**Allow users to update their own login details */
 ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('update').on('user', ['about', 'password', 'email']);
 
 
-//Grant admin permissions to read and update all user rescources,
-//But not delete their own
+/**Grant admin permissions to read all users data */
 ac.grant('admin').execute('read').on('users');
 ac.grant('admin').execute('read').on('user');
+/**Grant admins permission to update all users data */
 ac.grant('admin').execute('update').on('user');
+/**Grant admins permission to delete user data except their own */
 ac.grant('admin').condition({Fn:'NOT_EQUALS', args:
     {'requester':'$.owner'}}).execute('delete').on('user');
 
 
-//Check if requester is owner of resource
+/**Handle permissions for reading all users data */
 exports.readAllUsers = (requester) =>
     ac.can(requester.role).execute('read').sync().on('users');
 
-//Only allow users to see their user data
+/**Users can only read their own details */
 exports.readUser = (requester, data) =>
     ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('read').sync().on('user');
 
-//Only allow users to update their user data
+/**Users can only update their own details */
 exports.updateUser = (requester, data) =>
     ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('update').sync().on('user');
 
-//Only allow users to delete THEIR user data
+/**Users can only delete their own details */
 exports.deleteUser = (requester, data) =>
     ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('delete').sync().on('user');

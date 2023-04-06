@@ -13,7 +13,6 @@
   "author": "Ben Sabatier",
   "license": "ISC",
   "dependencies": {
-    "jsdoc": "^4.0.2",
     "jsonschema": "^1.4.1",
     "koa": "^2.14.1",
     "koa-bodyparser": "^4.3.0",
@@ -22,5 +21,8 @@
     "passport-http": "^0.3.0",
     "promise-mysql": "^5.2.0",
     "role-acl": "^4.5.4"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.2"
   }
 }
