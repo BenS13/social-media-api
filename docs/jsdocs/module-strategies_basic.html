@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/news</title>
+    <title>JSDoc: Module: strategies/basic</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/news</h1>
+    <h1 class="page-title">Module: strategies/basic</h1>
 
     
 
@@ -34,7 +34,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Module that connects to a news api and returns data to users</div>
+            <div class="description">Module that handles authentication for users</div>
         
 
         
@@ -69,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line1">line 1</a>
+        <a href="strategies_basic.js.html">strategies/basic.js</a>, <a href="strategies_basic.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -98,134 +98,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~prefix"><span class="type-signature">(inner, constant) </span>prefix<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Define prefix for news resources
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Define base URL for accessing a news API
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -236,7 +108,7 @@
     
 
     
-    <h4 class="name" id="~getNews"><span class="type-signature">(async, inner) </span>getNews<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~compareUserAndPass"><span class="type-signature">(async, inner) </span>compareUserAndPass<span class="signature">(username, password, done)</span><span class="type-signature"> &rarr; {function}</span></h4>
     
 
     
@@ -244,8 +116,7 @@
 
 
 <div class="description">
-    Async function that gets category name from url,
-Then uses the newsAPI module to send a request to the xternal api
+    Async function to authenticate a user
 </div>
 
 
@@ -281,13 +152,13 @@ Then uses the newsAPI module to send a request to the xternal api
 
         <tr>
             
-                <td class="name"><code>ctx</code></td>
+                <td class="name"><code>username</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">string</span>
 
 
             
@@ -297,7 +168,53 @@ Then uses the newsAPI module to send a request to the xternal api
 
             
 
-            <td class="description last">Koa reponse/request object</td>
+            <td class="description last">Username of user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Password of user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>done</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Return done() function with errors if needed</td>
         </tr>
 
     
@@ -338,7 +255,7 @@ Then uses the newsAPI module to send a request to the xternal api
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line49">line 49</a>
+        <a href="strategies_basic.js.html">strategies/basic.js</a>, <a href="strategies_basic.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -363,6 +280,28 @@ Then uses the newsAPI module to send a request to the xternal api
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - Returns done()
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -374,7 +313,7 @@ Then uses the newsAPI module to send a request to the xternal api
     
 
     
-    <h4 class="name" id="~newsMenu"><span class="type-signature">(inner) </span>newsMenu<span class="signature">(ctx)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~verifyPassword"><span class="type-signature">(inner) </span>verifyPassword<span class="signature">(user, password)</span><span class="type-signature"> &rarr; {bool}</span></h4>
     
 
     
@@ -382,7 +321,7 @@ Then uses the newsAPI module to send a request to the xternal api
 
 
 <div class="description">
-    Function that returns a menu style response to the user
+    Function that checks password in DB against provided password
 </div>
 
 
@@ -418,7 +357,7 @@ Then uses the newsAPI module to send a request to the xternal api
 
         <tr>
             
-                <td class="name"><code>ctx</code></td>
+                <td class="name"><code>user</code></td>
             
 
             <td class="type">
@@ -434,7 +373,30 @@ Then uses the newsAPI module to send a request to the xternal api
 
             
 
-            <td class="description last">Koa request/response object</td>
+            <td class="description last">User object containig users details</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Supplied password to check against</td>
         </tr>
 
     
@@ -475,7 +437,7 @@ Then uses the newsAPI module to send a request to the xternal api
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_news.js.html">routes/news.js</a>, <a href="routes_news.js.html#line27">line 27</a>
+        <a href="strategies_basic.js.html">strategies/basic.js</a>, <a href="strategies_basic.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -500,6 +462,28 @@ Then uses the newsAPI module to send a request to the xternal api
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - True if password correct
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

@@ -183,7 +183,7 @@ async function addLike(ctx){
     let like = await likes.addLike(userId, postId);
     if (like){
         ctx.status = 201;
-        ctx.body = {ID: insertId,
+        ctx.body = {ID: postId,
                     message: 'liked'};
     }else {
         ctx.status = 500;//Server error
@@ -201,7 +201,7 @@ async function removeLike(ctx){
     let like = await likes.removeLike(userId, postId);
     if (like){
         ctx.status = 200;
-        ctx.body = {ID: insertId,
+        ctx.body = {ID: postId,
                     message: "disliked"};
     }else {
         ctx.status = 500;//Server error

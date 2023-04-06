@@ -21,6 +21,8 @@ tags:
     description: Access and perform CRUD operations on comments.
   - name: Likes
     description: Access and perform CRUD operations on likes.
+  - name: News
+    description: Access 3rd Part API to recieve news by category.
 
 paths:
   /users:
@@ -314,3 +316,40 @@ paths:
           description: Unliking requires login
         '500':
           description: Error when unliking post
+
+  /news:
+    summary: Represents a news article
+    description: >
+      This resource represents a new article.
+      The artciles come from a 3rd Party API Inshorts News API
+      https://github.com/cyberboysumanjay/Inshorts-News-API
+    get:
+      tags:
+        - News
+      description:
+        Get news menu
+      responses:
+        '200':
+          description: Succesfully displayed menu
+        '404':
+          description: Not found
+  /news/{category}:
+    parameters:
+      - in: path
+        name: category
+        schema:
+          type: string
+        required: true
+        description: Name of category of News
+    get:
+      tags:
+        - News
+      description:
+        Get news by category
+      responses:
+        '200':
+          description: News succesfully received
+        '404':
+          description: Not found, incorrect category
+          
+

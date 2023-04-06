@@ -19,8 +19,8 @@ const sha256 = require('sha256');
 const verifyPassword = function (user,password){
     //compare password in storage to supplied password
     hashed_password = sha256(password);
-    console.log(hashed_password);
-    console.log(user.password);
+    //console.log(hashed_password);
+    //console.log(user.password);
     return (user.password == hashed_password);
 }
 

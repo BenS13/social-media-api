@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: permissions/users.js</title>
+    <title>JSDoc: Source: strategies/basic.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: permissions/users.js</h1>
+    <h1 class="page-title">Source: strategies/basic.js</h1>
 
     
 
@@ -27,47 +27,66 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Module to control ownership of user resources
- * @module permissions/users
+ * Module that handles authentication for users
+ * @module strategies/basic
+ * @owner Adapted from week4 Lab Authentication and Permissions
  */
 
-const AccessControl = require('role-acl');
-const ac = new AccessControl();
 
 
+const BasicStrategy = require('passport-http').BasicStrategy
+const users = require('../models/users');
+const sha256 = require('sha256');
 
-/**Allow users to read their own login details */
-ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('read').on('user', ['*', '!password', '!passwordSalt']);
+/**
+ * Function that checks password in DB against provided password
+ * @param {object} user - User object containig users details
+ * @param {string} password - Supplied password to check against
+ * @returns {bool} - True if password correct
+ */
+const verifyPassword = function (user,password){
+    //compare password in storage to supplied password
+    hashed_password = sha256(password);
+    //console.log(hashed_password);
+    //console.log(user.password);
+    return (user.password == hashed_password);
+}
 
-/**Allow users to update their own login details */
-ac.grant('user').condition({Fn:'EQUALS', args: {'requester':'$.owner'}}).execute('update').on('user', ['about', 'password', 'email']);
+/**
+ * Async function to authenticate a user
+ * @param {string} username - Username of user
+ * @param {string} password - Password of user
+ * @param {function} done - Return done() function with errors if needed
+ * @returns {function} - Returns done()
+ */
+const compareUserAndPass = async (username, password, done) => {
+    //look up user in DB
+    //check if supplied password == stored password
+    //call done() with either an error or the username
+    let result;
+    try {
+        result = await users.getUserByUsername(username);
+    } catch (error){
+        console.error(`There has been an error during authentication for user ${username}`);
+        return done(error);
+    }
 
+    if (result.length) {
+        const user = result[0];
+        if (verifyPassword(user, password)) {
+            console.log(`Authentication Succesful for user ${username}`);
+            return done(null, user);
+        } else{
+            console.log("Incorrect password");
+        }
+    } else {
+        console.log("No user found");
+    }
+    return done(null, false);
+}
 
-/**Grant admin permissions to read all users data */
-ac.grant('admin').execute('read').on('users');
-ac.grant('admin').execute('read').on('user');
-/**Grant admins permission to update all users data */
-ac.grant('admin').execute('update').on('user');
-/**Grant admins permission to delete user data except their own */
-ac.grant('admin').condition({Fn:'NOT_EQUALS', args:
-    {'requester':'$.owner'}}).execute('delete').on('user');
-
-
-/**Handle permissions for reading all users data */
-exports.readAllUsers = (requester) =>
-    ac.can(requester.role).execute('read').sync().on('users');
-
-/**Users can only read their own details */
-exports.readUser = (requester, data) =>
-    ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('read').sync().on('user');
-
-/**Users can only update their own details */
-exports.updateUser = (requester, data) =>
-    ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('update').sync().on('user');
-
-/**Users can only delete their own details */
-exports.deleteUser = (requester, data) =>
-    ac.can(requester.role).context({requester:requester.ID, owner:data.ID}).execute('delete').sync().on('user');</code></pre>
+const strategy = new BasicStrategy(compareUserAndPass);
+module.exports = strategy;</code></pre>
         </article>
     </section>
 

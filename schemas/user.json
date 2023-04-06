@@ -28,7 +28,7 @@
 				"type": "string"
 			}
 		},
-		"required": ["username", "password", "passwordSalt"]
+		"required": ["username", "password"]
 	},
 
 	"viewUsers": {
