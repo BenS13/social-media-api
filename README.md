@@ -8,7 +8,7 @@ Created for 6003CEM Web API Development for Computer Science course at Coventry 
 |Authentication | :heavy_check_mark:                          | BasicAuth      |
 |Authorisation  | :orange_circle: :construction:              | Update authorisation |
 |Schema         | :orange_circle: :construction:              | Implement schemas for incoming data|
-|3rd Party API  | :orange_circle: :construction:              | Implenent a cache |
+|3rd Party API  | :orange_circle: :construction:              | Implement a cache |
 |SPA (UI)       | :red_circle: :construction:                 | Implement front-end |
 |Testing        | :red_circle: :construction:                 | Implement automatic tests |
 
