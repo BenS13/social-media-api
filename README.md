@@ -13,6 +13,11 @@ Created for 6003CEM Web API Development for Computer Science course at Coventry 
 |Testing        | :red_circle: :construction:                 | Implement automatic tests |
 
 
+OS Tested on:
+* Linux :heavy_check_mark:
+* Windows :heavy_check_mark:
+* Mac :red_circle:
+
 :heavy_check_mark: - Completed
 :orange_circle: - Nearly Completed
 :red_circle: - Far from Completion
