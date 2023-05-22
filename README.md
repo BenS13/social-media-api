@@ -13,3 +13,7 @@ Created for 6003CEM Web API Development for Computer Science course at Coventry 
 |Testing        | :red_circle: :construction:                 | Implement automatic tests |
 
 
+:heavy_check_mark: - Completed
+:orange_circle: - Nearly Completed
+:red_circle: - Far from Completion
+:construction: - Under construction
