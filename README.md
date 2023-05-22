@@ -4,3 +4,5 @@ Created for 6003CEM Web API Development for Computer Science course at Coventry 
 |Task       |Current Status |
 | --------- | ------------- |
 |Routes     | Completed :heavy_check_mark:|
+|Models     | Completed :heavy_check_mark:|
+
