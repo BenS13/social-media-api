@@ -22,3 +22,6 @@ OS Tested on:
 :orange_circle: - Nearly Completed
 :red_circle: - Far from Completion
 :construction: - Under construction
+
+
+#Instilation Instructions
