@@ -25,9 +25,9 @@ OS Tested on:
 
 
 ## Instilation Instructions:
-Clone the repository ```git clone https://github.com/BenS13/social-media-api.git```
-CD into the directory ```socail-media-api```
-Run ```npm init```
-Run ```npm install packages```
-Set up a ```.config``` file for the database connection
-...
+* Clone the repository ```git clone https://github.com/BenS13/social-media-api.git```
+* CD into the directory ```socail-media-api```
+* Run ```npm init```
+* Run ```npm install packages```
+* Set up a ```.config``` file for the database connection
+* ...
