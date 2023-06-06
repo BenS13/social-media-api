@@ -24,4 +24,10 @@ OS Tested on:
 :construction: - Under construction
 
 
-##Instilation Instructions:
+## Instilation Instructions:
+Clone the repository ```git clone https://github.com/BenS13/social-media-api.git```
+CD into the directory ```socail-media-api```
+Run ```npm init```
+Run ```npm install packages```
+Set up a ```.config``` file for the database connection
+...
